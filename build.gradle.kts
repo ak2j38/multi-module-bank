@@ -6,8 +6,6 @@ plugins {
   id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
-
-
 allprojects {
   group = "org.park.example"
   version = "0.0.1-SNAPSHOT"
@@ -18,7 +16,7 @@ allprojects {
 }
 
 subprojects {
-  apply(plugin = "kotlin")
+  apply(plugin = "org.jetbrains.kotlin.jvm")
   apply(plugin = "io.spring.dependency-management")
 
   if (name == "bank-api") {
@@ -35,29 +33,14 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
   }
 
+  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+      jvmTarget = "17"
+      freeCompilerArgs += "-Xjsr305=strict"
+    }
+  }
+
   tasks.withType<Test> {
     useJUnitPlatform()
   }
-
-  kotlin {
-    jvmToolchain(17)
-
-    compilerOptions {
-      freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-  }
-}
-
-java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(17)
-  }
-}
-
-dependencies {
-  implementation("org.springframework.boot:spring-boot-starter")
-  implementation("org.jetbrains.kotlin:kotlin-reflect")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
-  testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
