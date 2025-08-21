@@ -1,7 +1,7 @@
 package org.park.example.bankapi.exception
 
 import org.park.example.bankapi.common.ApiResponse
-import org.park.example.bankdomain.exception.AccountNotFoundException
+import org.park.example.bankcore.exception.AccountNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

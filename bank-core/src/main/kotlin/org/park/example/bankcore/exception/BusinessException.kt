@@ -1,4 +1,4 @@
-package org.park.example.bankdomain.exception
+package org.park.example.bankcore.exception
 
 abstract class BusinessException(
   message: String?, cause: Throwable? = null
