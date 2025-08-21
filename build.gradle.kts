@@ -1,3 +1,5 @@
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+
 plugins {
   kotlin("jvm") version "1.9.25" apply false
   kotlin("plugin.spring") version "1.9.25" apply false
@@ -31,6 +33,12 @@ subprojects {
 
   if (name == "bank-domain") {
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
+  }
+
+  the<DependencyManagementExtension>().apply {
+    imports {
+      mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.4")
+    }
   }
 
   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
