@@ -1,4 +1,4 @@
-package org.park.example.publisher
+package org.park.bankevent.publisher
 
 import org.park.example.bankdomain.event.DomainEvent
 
