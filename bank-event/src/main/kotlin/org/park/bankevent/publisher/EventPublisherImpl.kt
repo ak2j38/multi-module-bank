@@ -1,5 +1,6 @@
 package org.park.bankevent.publisher
 
+import org.example.park.metrics.BankMetrics
 import org.park.example.bankdomain.event.DomainEvent
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
@@ -8,7 +9,8 @@ import org.springframework.stereotype.Component
 
 @Component
 open class EventPublisherImpl(
-  private val eventPublisher: ApplicationEventPublisher
+  private val eventPublisher: ApplicationEventPublisher,
+  private val bankMetrics: BankMetrics
 ) : EventPublisher {
   private val logger = LoggerFactory.getLogger(EventPublisherImpl::class.java)
 
@@ -16,6 +18,7 @@ open class EventPublisherImpl(
     logger.info("Publishing event: ${event.eventId} at ${event.occurredOn}")
     try {
       eventPublisher.publishEvent(event)
+      bankMetrics.incrementEventPublished(event::class.simpleName ?: "UNKNOWN")
     } catch (e: Exception) {
       logger.error("Failed to publish event: ${event.eventId} at ${event.occurredOn}", e)
       throw e
@@ -27,6 +30,7 @@ open class EventPublisherImpl(
     logger.info("Publishing event: ${event.eventId} at ${event.occurredOn}")
     try {
       eventPublisher.publishEvent(event)
+      bankMetrics.incrementEventPublished(event::class.simpleName ?: "UNKNOWN")
     } catch (e: Exception) {
       logger.error("Failed to publish event: ${event.eventId} at ${event.occurredOn}", e)
       throw e
@@ -38,6 +42,7 @@ open class EventPublisherImpl(
       events.forEach { event ->
         logger.info("Publishing event: ${event.eventId} at ${event.occurredOn}")
         eventPublisher.publishEvent(event)
+        bankMetrics.incrementEventPublished(event::class.simpleName ?: "UNKNOWN")
       }
     } catch (e: Exception) {
       logger.error("Failed to publish events", e)
@@ -51,6 +56,7 @@ open class EventPublisherImpl(
       events.forEach { event ->
         logger.info("Publishing event: ${event.eventId} at ${event.occurredOn}")
         eventPublisher.publishEvent(event)
+        bankMetrics.incrementEventPublished(event::class.simpleName ?: "UNKNOWN")
       }
     } catch (e: Exception) {
       logger.error("Failed to publish events", e)
