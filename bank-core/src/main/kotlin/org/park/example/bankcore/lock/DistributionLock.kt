@@ -13,7 +13,7 @@ data class DistributionLock(
   val timeout: Long = 5000,
   val leaseTime: Long = 10000,
   val retryInterval: Long = 5000,
-  val maxRetryAttemps: Long = 50
+  val maxRetryAttempts: Long = 50
 )
 
 @Service
