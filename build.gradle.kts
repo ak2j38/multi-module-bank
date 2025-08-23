@@ -35,6 +35,10 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
   }
 
+  if (name == "bank-event") {
+    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+  }
+
   the<DependencyManagementExtension>().apply {
     imports {
       mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.4")
