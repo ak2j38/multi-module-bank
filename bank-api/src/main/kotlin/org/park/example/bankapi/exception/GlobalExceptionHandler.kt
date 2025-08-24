@@ -15,11 +15,11 @@ class GlobalExceptionHandler {
 
 
   @ExceptionHandler(AccountNotFoundException::class)
-  fun handleAccountNotFoundException(ex: AccountNotFoundException): ResponseEntity<ApiResponse> {
+  fun handleAccountNotFoundException(ex: AccountNotFoundException): ResponseEntity<ApiResponse<Nothing>> {
     logger.error("Account not found: ${ex.message}", ex)
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-      ApiResponse.failure(
+      ApiResponse.exceptionError(
         errorCode = "ACCOUNT_NOT_FOUND",
         details = ex.message ?: "Account not found",
         message = "The requested account could not be found."
